@@ -114,6 +114,13 @@
 				</div>
 			<% } %>
 
+			<% if(msg=='D'){%>
+
+				<div class="alert alert-info" id="msg">
+						<strong>Senhor, sua ordem foi revogada!</strong>
+				</div>
+			<% } %>
+
 			<div class="row">
 	    		<div class="col-sm-3 casa">
 					<img src="images/casa_<%=img_casa%>.jpg" />
@@ -171,7 +178,7 @@
 					
 					<div class="col-sm-2">
 						<img src="images/outros/moeda.jpg" title="Moeda" alt="Moeda"/>
-						<span>25</span>
+						<span><%=jogo.moeda%></span>
 					</div>
 					
 				</div>
