@@ -12,10 +12,8 @@ UsuariosDAO.prototype.inserir = function(usuario){
 
 		mongoclient.collection("usuarios", function(err, collection){
 		
-			var senha_criptografada =  crypto.createHash("md5").update(usuario.senha).digest("hex")
-
-			usuario.senha = senha_criptografada;
-
+			CriptografarSenhaUsuario(usuario);
+			
 			collection.insert(usuario);
 
 		mongoclient.close();
@@ -30,9 +28,7 @@ UsuariosDAO.prototype.autenticar = function(usuario,req,res){
 
 		mongoclient.collection("usuarios", function(err, collection){
 		
-		var senha_criptografada =  crypto.createHash("md5").update(usuario.senha).digest("hex")
-		
-		usuario.senha = senha_criptografada;
+		CriptografarSenhaUsuario(usuario);
 		
 		collection.find(usuario ).toArray(function(err, result){
 			
@@ -59,4 +55,10 @@ UsuariosDAO.prototype.autenticar = function(usuario,req,res){
 module.exports = function(){
 
     return UsuariosDAO;
+}
+
+function CriptografarSenhaUsuario(usuario) {
+
+	var senha_criptografada = crypto.createHash("md5").update(usuario.senha).digest("hex");
+	usuario.senha = senha_criptografada;
 }
